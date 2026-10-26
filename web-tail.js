@@ -20,7 +20,10 @@ function sideOpen(on){ document.querySelector('.win').classList.toggle('side-ope
     if(e.pointerType==='mouse') return;
     fired=false; p0={x:e.clientX, y:e.clientY, t:e.target}; clearTimeout(tm);
     tm=setTimeout(()=>{ if(!p0) return; fired=true; if(navigator.vibrate) navigator.vibrate(15);
-      p0.t.dispatchEvent(new MouseEvent('contextmenu', {bubbles:true, cancelable:true, clientX:p0.x, clientY:p0.y, button:2})); }, 550);
+      const o={bubbles:true, cancelable:true, clientX:p0.x, clientY:p0.y};
+      const handled=!p0.t.dispatchEvent(new MouseEvent('contextmenu', Object.assign({button:2}, o)));
+      /* en un subrayado, mantener presionado = el doble clic de la PC (quitarlo) */
+      if(!handled && p0.t.closest && p0.t.closest('mark')) p0.t.dispatchEvent(new MouseEvent('dblclick', o)); }, 550);
   }, true);
   document.addEventListener('pointermove', e=>{ if(p0 && Math.hypot(e.clientX-p0.x, e.clientY-p0.y)>10){ clearTimeout(tm); p0=null; } }, true);
   ['pointerup','pointercancel'].forEach(t=>document.addEventListener(t, e=>{ clearTimeout(tm); p0=null;
@@ -86,3 +89,61 @@ if('serviceWorker' in navigator && location.protocol==='https:'){
 }
 /* pedir al iPhone que no borre los datos por falta de espacio */
 if(navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
+
+/* ---------- en pantalla táctil, las ayudas hablan de dedos, no de mouse ni teclado ---------- */
+const TOUCH=matchMedia('(hover: none), (pointer: coarse)').matches || navigator.maxTouchPoints>0;
+function touchText(s){
+  if(!TOUCH || typeof s!=='string') return s;
+  return s.replace(/rueda del mouse (para cambiar tamaño|= tamaño)/g, (m,a)=>'pellizca con dos dedos '+(a[0]==='='?'= tamaño':'para cambiar el tamaño'))
+    .replace(/[Cc]lic derecho/g, m=>m[0]==='C'?'Mantener presionado':'mantener presionado')
+    .replace(/doble clic sobre él/g, 'mantenlo presionado').replace(/doble clic/g, 'mantener presionado')
+    .replace(/el dedo, el lápiz o el mouse/g, 'el dedo o el lápiz').replace(/con el mouse/g, 'con el dedo').replace(/ o el mouse/g, '')
+    .replace(/ o las flechas del teclado/g, ' o deslizando el dedo').replace(/, las flechas o deslizando/g, ' o deslizando')
+    .replace(/usa Ctrl\+C/g, 'mantén presionado → Copiar')
+    .replace(/arrastra sobre las letras de la página/g, 'mantén presionada una palabra y estira la selección');
+}
+if(TOUCH){
+  const _toastT=toast; toast=function(h){ return _toastT(touchText(h)); };
+  const _saidT=buddySay; buddySay=function(h, ms){ return _saidT(touchText(h), ms); };
+  TUT.forEach(s=>s.t=touchText(s.t));
+  const _tdmT=toggleDecorMode; toggleDecorMode=function(){ const r=_tdmT.apply(this, arguments);
+    const l=document.querySelector('#decorPalette .dp-head .lbl'); if(l) l.textContent=touchText(l.textContent); return r; };
+}
+
+/* ---------- tutorial en el celular: lo que vive en el menú se muestra con el menú abierto,
+              y la tarjeta se pone arriba o abajo según dónde esté lo que señala ---------- */
+const _posTutW=positionTut;
+positionTut=function(el){
+  if(innerWidth>820) return _posTutW(el);
+  const card=document.getElementById('tutOv'), inSide=!!(el && el.closest('.sidebar'));
+  sideOpen(inSide);
+  card.classList.add('show');
+  setTimeout(()=>{
+    if(el && el.scrollIntoView && !inSide) el.scrollIntoView({block:'nearest'});
+    const r=el ? el.getBoundingClientRect() : null, tb=document.querySelector('.titlebar').getBoundingClientRect();
+    const low=r && (r.top+r.height/2) > innerHeight*0.55;
+    card.style.left='10px';
+    card.style.top=(low ? tb.bottom+8 : innerHeight-card.offsetHeight-12)+'px';
+  }, inSide ? 320 : 30);
+};
+const _stsW=showTutStep;
+showTutStep=function(){ const r=_stsW.apply(this, arguments); if(tutStep>=TUT.length) sideOpen(false); return r; };
+
+/* ---------- decorar con los dedos: pellizcar para cambiar el tamaño de un adorno ---------- */
+(function(){
+  let pin=null;
+  document.addEventListener('touchstart', e=>{
+    if(!decorMode || e.touches.length!==2) return;
+    const [a,b]=e.touches, it=(a.target.closest && a.target.closest('.decor-item')) || (b.target.closest && b.target.closest('.decor-item'));
+    if(!it) return;
+    const i=[...it.parentNode.querySelectorAll('.decor-item')].indexOf(it), d=(state.decor||[])[i]; if(!d) return;
+    pin={it, d, s0:d.s||70, d0:Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY)};
+  }, {passive:true});
+  document.addEventListener('touchmove', e=>{
+    if(!pin || e.touches.length!==2) return;
+    e.preventDefault();
+    const [a,b]=e.touches, k=Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY)/pin.d0;
+    pin.d.s=Math.max(28, Math.min(260, pin.s0*k)); pin.it.style.width=pin.d.s+'px';
+  }, {passive:false});
+  document.addEventListener('touchend', ()=>{ if(pin){ pin=null; scheduleSave(); } }, {passive:true});
+})();
