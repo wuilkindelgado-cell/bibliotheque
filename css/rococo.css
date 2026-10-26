@@ -1,0 +1,98 @@
+/* ===== v1.4: estética rococó — generado por build/rococo.js ===== */
+:root{
+  --buttercream:#F7ECDD; --ivory:#FDF8F1;
+  --rose-quartz:#F3C9CF; --bridal-rose:#C27A8C;
+  --whispy-blue:#BCD8E8; --eau:#CFE6DB; --lavande:#DCCDEA; --pistache:#E3EBCF;
+  --gold:#C9A04A; --gold-light:#F0DA9C; --gold-dark:#9A782C;
+  --shelf-wood:#F8EFE2; --shelf-shadow:#E4D3BC;
+  --ink:#4E3934; --ink-soft:#866C64; --wax:#A8414F; --sage:#94A879;
+  --gilt:linear-gradient(135deg,#9A782C 0%,#F0DA9C 22%,#C9A04A 45%,#FBEBC0 62%,#A9833A 82%,#E7C97A 100%);
+  --script:'Pinyon Script', 'Caveat', cursive;
+  --damask:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22160%22%20viewBox%3D%220%200%20120%20160%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23B88A5A%22%20stroke-opacity%3D%220.16%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M60%2020%20C%2048%2034%2C%2036%2040%2C%2030%2056%20C%2026%2070%2C%2036%2082%2C%2048%2078%20C%2056%2075%2C%2054%2064%2C%2046%2066%22%2F%3E%20%3Cpath%20d%3D%22M60%2020%20C%2072%2034%2C%2084%2040%2C%2090%2056%20C%2094%2070%2C%2084%2082%2C%2072%2078%20C%2064%2075%2C%2066%2064%2C%2074%2066%22%2F%3E%20%3Cpath%20d%3D%22M60%20140%20C%2048%20126%2C%2036%20120%2C%2030%20104%20C%2026%2090%2C%2036%2078%2C%2048%2082%20C%2056%2085%2C%2054%2096%2C%2046%2094%22%2F%3E%20%3Cpath%20d%3D%22M60%20140%20C%2072%20126%2C%2084%20120%2C%2090%20104%20C%2094%2090%2C%2084%2078%2C%2072%2082%20C%2064%2085%2C%2066%2096%2C%2074%2094%22%2F%3E%20%3Cpath%20d%3D%22M60%2052%20C%2054%2062%2C%2054%2070%2C%2060%2080%20C%2066%2070%2C%2066%2062%2C%2060%2052%20Z%22%2F%3E%20%3Cpath%20d%3D%22M60%2080%20C%2054%2090%2C%2054%2098%2C%2060%20108%20C%2066%2098%2C%2066%2090%2C%2060%2080%20Z%22%2F%3E%20%3Cpath%20d%3D%22M42%2080%20C%2050%2076%2C%2054%2078%2C%2060%2080%20C%2066%2078%2C%2070%2076%2C%2078%2080%22%2F%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%2280%22%20r%3D%223%22%2F%3E%20%3Cpath%20d%3D%22M0%200%20C%208%208%2C%208%2014%2C%202%2020%20M120%200%20C%20112%208%2C%20112%2014%2C%20118%2020%20M0%20160%20C%208%20152%2C%208%20146%2C%202%20140%20M120%20160%20C%20112%20152%2C%20112%20146%2C%20118%20140%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E");
+  --damask-rose:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22160%22%20viewBox%3D%220%200%20120%20160%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23C27A8C%22%20stroke-opacity%3D%220.13%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M60%2020%20C%2048%2034%2C%2036%2040%2C%2030%2056%20C%2026%2070%2C%2036%2082%2C%2048%2078%20C%2056%2075%2C%2054%2064%2C%2046%2066%22%2F%3E%20%3Cpath%20d%3D%22M60%2020%20C%2072%2034%2C%2084%2040%2C%2090%2056%20C%2094%2070%2C%2084%2082%2C%2072%2078%20C%2064%2075%2C%2066%2064%2C%2074%2066%22%2F%3E%20%3Cpath%20d%3D%22M60%20140%20C%2048%20126%2C%2036%20120%2C%2030%20104%20C%2026%2090%2C%2036%2078%2C%2048%2082%20C%2056%2085%2C%2054%2096%2C%2046%2094%22%2F%3E%20%3Cpath%20d%3D%22M60%20140%20C%2072%20126%2C%2084%20120%2C%2090%20104%20C%2094%2090%2C%2084%2078%2C%2072%2082%20C%2064%2085%2C%2066%2096%2C%2074%2094%22%2F%3E%20%3Cpath%20d%3D%22M60%2052%20C%2054%2062%2C%2054%2070%2C%2060%2080%20C%2066%2070%2C%2066%2062%2C%2060%2052%20Z%22%2F%3E%20%3Cpath%20d%3D%22M60%2080%20C%2054%2090%2C%2054%2098%2C%2060%20108%20C%2066%2098%2C%2066%2090%2C%2060%2080%20Z%22%2F%3E%20%3Cpath%20d%3D%22M42%2080%20C%2050%2076%2C%2054%2078%2C%2060%2080%20C%2066%2078%2C%2070%2076%2C%2078%2080%22%2F%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%2280%22%20r%3D%223%22%2F%3E%20%3Cpath%20d%3D%22M0%200%20C%208%208%2C%208%2014%2C%202%2020%20M120%200%20C%20112%208%2C%20112%2014%2C%20118%2020%20M0%20160%20C%208%20152%2C%208%20146%2C%202%20140%20M120%20160%20C%20112%20152%2C%20112%20146%2C%20118%20140%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E");
+  --damask-gold:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22160%22%20viewBox%3D%220%200%20120%20160%22%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23F0DA9C%22%20stroke-opacity%3D%220.22%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M60%2020%20C%2048%2034%2C%2036%2040%2C%2030%2056%20C%2026%2070%2C%2036%2082%2C%2048%2078%20C%2056%2075%2C%2054%2064%2C%2046%2066%22%2F%3E%20%3Cpath%20d%3D%22M60%2020%20C%2072%2034%2C%2084%2040%2C%2090%2056%20C%2094%2070%2C%2084%2082%2C%2072%2078%20C%2064%2075%2C%2066%2064%2C%2074%2066%22%2F%3E%20%3Cpath%20d%3D%22M60%20140%20C%2048%20126%2C%2036%20120%2C%2030%20104%20C%2026%2090%2C%2036%2078%2C%2048%2082%20C%2056%2085%2C%2054%2096%2C%2046%2094%22%2F%3E%20%3Cpath%20d%3D%22M60%20140%20C%2072%20126%2C%2084%20120%2C%2090%20104%20C%2094%2090%2C%2084%2078%2C%2072%2082%20C%2064%2085%2C%2066%2096%2C%2074%2094%22%2F%3E%20%3Cpath%20d%3D%22M60%2052%20C%2054%2062%2C%2054%2070%2C%2060%2080%20C%2066%2070%2C%2066%2062%2C%2060%2052%20Z%22%2F%3E%20%3Cpath%20d%3D%22M60%2080%20C%2054%2090%2C%2054%2098%2C%2060%20108%20C%2066%2098%2C%2066%2090%2C%2060%2080%20Z%22%2F%3E%20%3Cpath%20d%3D%22M42%2080%20C%2050%2076%2C%2054%2078%2C%2060%2080%20C%2066%2078%2C%2070%2076%2C%2078%2080%22%2F%3E%20%3Ccircle%20cx%3D%2260%22%20cy%3D%2280%22%20r%3D%223%22%2F%3E%20%3Cpath%20d%3D%22M0%200%20C%208%208%2C%208%2014%2C%202%2020%20M120%200%20C%20112%208%2C%20112%2014%2C%20118%2020%20M0%20160%20C%208%20152%2C%208%20146%2C%202%20140%20M120%20160%20C%20112%20152%2C%20112%20146%2C%20118%20140%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E");
+  --rc1:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2246%22%20height%3D%2246%22%20viewBox%3D%220%200%2046%2046%22%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23A9833A%22%2F%3E%3Cstop%20offset%3D%22.5%22%20stop-color%3D%22%23F3DC9A%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A9833A%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Cg%20transform%3D%22translate(0%2C0)%20scale(1%2C1)%22%20fill%3D%22none%22%20stroke%3D%22url(%23g)%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2014%2C%2014%203%2C%2030%203%22%2F%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2036%2C%208%2040%2C%2013%2037%20C%2017%2034%2C%2015%2028%2C%2010%2030%22%2F%3E%20%3Cpath%20d%3D%22M30%203%20C%2036%203%2C%2040%208%2C%2037%2013%20C%2034%2017%2C%2028%2015%2C%2030%2010%22%2F%3E%20%3Cpath%20d%3D%22M10%2018%20C%2014%2012%2C%2020%209%2C%2026%209%22%2F%3E%20%3Cpath%20d%3D%22M14%2022%20C%2016%2018%2C%2019%2016%2C%2022%2015%22%20stroke-width%3D%221.6%22%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%2218%22%20r%3D%222.6%22%20fill%3D%22url(%23g)%22%20stroke%3D%22none%22%2F%3E%20%3Cpath%20d%3D%22M18%2018%20L%209%209%20M18%2018%20L%206%2015%20M18%2018%20L%2015%206%22%20stroke-width%3D%221.2%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E"); --rc2:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2246%22%20height%3D%2246%22%20viewBox%3D%220%200%2046%2046%22%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23A9833A%22%2F%3E%3Cstop%20offset%3D%22.5%22%20stop-color%3D%22%23F3DC9A%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A9833A%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Cg%20transform%3D%22translate(46%2C0)%20scale(-1%2C1)%22%20fill%3D%22none%22%20stroke%3D%22url(%23g)%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2014%2C%2014%203%2C%2030%203%22%2F%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2036%2C%208%2040%2C%2013%2037%20C%2017%2034%2C%2015%2028%2C%2010%2030%22%2F%3E%20%3Cpath%20d%3D%22M30%203%20C%2036%203%2C%2040%208%2C%2037%2013%20C%2034%2017%2C%2028%2015%2C%2030%2010%22%2F%3E%20%3Cpath%20d%3D%22M10%2018%20C%2014%2012%2C%2020%209%2C%2026%209%22%2F%3E%20%3Cpath%20d%3D%22M14%2022%20C%2016%2018%2C%2019%2016%2C%2022%2015%22%20stroke-width%3D%221.6%22%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%2218%22%20r%3D%222.6%22%20fill%3D%22url(%23g)%22%20stroke%3D%22none%22%2F%3E%20%3Cpath%20d%3D%22M18%2018%20L%209%209%20M18%2018%20L%206%2015%20M18%2018%20L%2015%206%22%20stroke-width%3D%221.2%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E"); --rc3:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2246%22%20height%3D%2246%22%20viewBox%3D%220%200%2046%2046%22%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23A9833A%22%2F%3E%3Cstop%20offset%3D%22.5%22%20stop-color%3D%22%23F3DC9A%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A9833A%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Cg%20transform%3D%22translate(0%2C46)%20scale(1%2C-1)%22%20fill%3D%22none%22%20stroke%3D%22url(%23g)%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2014%2C%2014%203%2C%2030%203%22%2F%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2036%2C%208%2040%2C%2013%2037%20C%2017%2034%2C%2015%2028%2C%2010%2030%22%2F%3E%20%3Cpath%20d%3D%22M30%203%20C%2036%203%2C%2040%208%2C%2037%2013%20C%2034%2017%2C%2028%2015%2C%2030%2010%22%2F%3E%20%3Cpath%20d%3D%22M10%2018%20C%2014%2012%2C%2020%209%2C%2026%209%22%2F%3E%20%3Cpath%20d%3D%22M14%2022%20C%2016%2018%2C%2019%2016%2C%2022%2015%22%20stroke-width%3D%221.6%22%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%2218%22%20r%3D%222.6%22%20fill%3D%22url(%23g)%22%20stroke%3D%22none%22%2F%3E%20%3Cpath%20d%3D%22M18%2018%20L%209%209%20M18%2018%20L%206%2015%20M18%2018%20L%2015%206%22%20stroke-width%3D%221.2%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E"); --rc4:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2246%22%20height%3D%2246%22%20viewBox%3D%220%200%2046%2046%22%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23A9833A%22%2F%3E%3Cstop%20offset%3D%22.5%22%20stop-color%3D%22%23F3DC9A%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A9833A%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Cg%20transform%3D%22translate(46%2C46)%20scale(-1%2C-1)%22%20fill%3D%22none%22%20stroke%3D%22url(%23g)%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2014%2C%2014%203%2C%2030%203%22%2F%3E%20%3Cpath%20d%3D%22M3%2030%20C%203%2036%2C%208%2040%2C%2013%2037%20C%2017%2034%2C%2015%2028%2C%2010%2030%22%2F%3E%20%3Cpath%20d%3D%22M30%203%20C%2036%203%2C%2040%208%2C%2037%2013%20C%2034%2017%2C%2028%2015%2C%2030%2010%22%2F%3E%20%3Cpath%20d%3D%22M10%2018%20C%2014%2012%2C%2020%209%2C%2026%209%22%2F%3E%20%3Cpath%20d%3D%22M14%2022%20C%2016%2018%2C%2019%2016%2C%2022%2015%22%20stroke-width%3D%221.6%22%2F%3E%20%3Ccircle%20cx%3D%2218%22%20cy%3D%2218%22%20r%3D%222.6%22%20fill%3D%22url(%23g)%22%20stroke%3D%22none%22%2F%3E%20%3Cpath%20d%3D%22M18%2018%20L%209%209%20M18%2018%20L%206%2015%20M18%2018%20L%2015%206%22%20stroke-width%3D%221.2%22%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E");
+  --molding:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2228%22%20height%3D%2212%22%20viewBox%3D%220%200%2028%2012%22%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D%22m%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23F6E3A8%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23A9833A%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D%2228%22%20height%3D%2212%22%20fill%3D%22%23C9A04A%22%2F%3E%3Cellipse%20cx%3D%229%22%20cy%3D%226%22%20rx%3D%225%22%20ry%3D%224.6%22%20fill%3D%22url(%23m)%22%20stroke%3D%22%238A6A28%22%20stroke-width%3D%22.8%22%2F%3E%20%3Cpath%20d%3D%22M20%201%20L%2022%206%20L%2020%2011%20L%2018%206%20Z%22%20fill%3D%22%238A6A28%22%2F%3E%3C%2Fsvg%3E");
+}
+/* papel de las paredes */
+.wall, .stats-grid, .medals, .letters-grid, .wrap-stage, .album-stage, .ab-stage, .center-col{
+  background-image:var(--damask), linear-gradient(180deg,#FBF3E8,#F4E7D5) !important; background-size:120px 160px, auto !important}
+.sidebar{background-image:var(--damask-rose), linear-gradient(180deg,#FBEFF0 0%,#F7ECDD 55%,#F3E4CF 100%) !important; background-size:120px 160px, auto !important;
+  border-right:none !important; box-shadow:inset -3px 0 0 #fff, inset -6px 0 0 var(--gold), 2px 0 10px rgba(78,57,52,.08)}
+.titlebar{background:linear-gradient(180deg,#FDF6EC,#F3E3CC) !important; border-bottom:none !important; box-shadow:0 2px 0 var(--gold), 0 4px 0 #fff, 0 5px 0 var(--gold-light)}
+.titlebar .t{font-family:var(--script) !important; font-weight:400 !important; font-size:23px !important; letter-spacing:.02em !important; color:#8A6A28 !important; text-transform:none}
+.titlebar .t b{color:var(--bridal-rose) !important; font-weight:400}
+
+/* techo pintado con moldura dorada */
+.fresco{border-bottom:none !important; box-shadow:inset 0 -12px 0 -2px transparent;
+  background:
+    radial-gradient(ellipse 40% 130% at 15% 105%, rgba(243,201,207,.85), transparent 60%),
+    radial-gradient(ellipse 45% 140% at 85% 105%, rgba(220,205,234,.75), transparent 62%),
+    radial-gradient(ellipse 30% 90% at 50% 120%, rgba(240,218,156,.55), transparent 70%),
+    linear-gradient(180deg,#A9CBE0 0%,#C6DEEC 45%,#F2E6E2 100%) !important}
+.fresco::after{content:''; position:absolute; left:0; right:0; bottom:0; height:12px; background:var(--molding) repeat-x; background-size:28px 12px; box-shadow:0 2px 4px rgba(78,57,52,.25)}
+.fresco .motto{font-family:var(--script) !important; font-style:normal !important; font-size:21px !important; letter-spacing:.01em !important; color:#7A5B3E !important; bottom:16px !important;
+  text-shadow:0 1px 0 rgba(255,255,255,.8)}
+.fresco .actions{bottom:18px !important}
+.fresco .chand{filter:drop-shadow(0 4px 6px rgba(78,57,52,.35)) drop-shadow(0 0 12px rgba(240,218,156,.6))}
+
+/* marcos dorados con volutas en las cuatro esquinas */
+.frame-card, .stat-card, .cabinet, .medal, .envelope, .album-page, .goal-card{
+  background-image:var(--rc1), var(--rc2), var(--rc3), var(--rc4) !important;
+  background-repeat:no-repeat !important; background-position:3px 3px, calc(100% - 3px) 3px, 3px calc(100% - 3px), calc(100% - 3px) calc(100% - 3px) !important;
+  background-size:34px 34px !important}
+.frame-card{background-color:var(--ivory) !important; border:none !important;
+  box-shadow:0 0 0 2px var(--gold), 0 0 0 5px #fff, 0 0 0 6px var(--gold-light), 0 0 0 7px var(--gold-dark), 0 18px 40px rgba(78,57,52,.3) !important}
+.stat-card{background-color:#FFFDF8 !important; border:none !important;
+  box-shadow:0 0 0 1.5px var(--gold), 0 0 0 4px #fff, 0 0 0 5px var(--gold-light), 0 8px 18px rgba(78,57,52,.12) !important}
+.cabinet{background-color:var(--shelf-wood) !important; border:none !important; border-radius:18px 18px 8px 8px !important;
+  box-shadow:0 0 0 2px var(--gold), 0 0 0 5px #fff, 0 0 0 6px var(--gold-light), 0 0 0 7px var(--gold-dark), 0 10px 22px rgba(78,57,52,.18) !important}
+.cabinet::before{background:var(--gilt) !important; color:#fff !important; border:none !important; text-shadow:0 1px 1px rgba(0,0,0,.25);
+  box-shadow:0 2px 4px rgba(78,57,52,.25)}
+.cabinet .cname{color:#8A6A28 !important}
+.plank{background:linear-gradient(180deg, rgba(188,216,232,.25), rgba(255,255,255,.55)) !important; border:1px solid var(--shelf-shadow) !important;
+  border-bottom:9px solid transparent !important; border-image:linear-gradient(90deg,#C9A04A,#F0DA9C,#C9A04A) 0 0 9 0 !important}
+.medal{background-color:#fff !important; border:none !important; box-shadow:0 0 0 1.5px var(--gold), 0 0 0 4px #fff, 0 0 0 5px var(--gold-light), 0 5px 12px rgba(78,57,52,.14) !important}
+.add-cabinet{border-color:var(--gold) !important; background:rgba(255,253,248,.6) !important}
+
+/* botones de porcelana con filete de oro */
+.btn{border:2px solid transparent !important; background:linear-gradient(180deg,#FFFFFF,#F7ECDD) padding-box, var(--gilt) border-box !important;
+  box-shadow:0 2px 0 #A9833A, 0 5px 12px rgba(78,57,52,.18) !important; color:var(--ink) !important}
+.btn.rose{background:linear-gradient(180deg,#FFF7F8,#F3C9CF) padding-box, var(--gilt) border-box !important; box-shadow:0 2px 0 #A9833A, 0 5px 12px rgba(194,122,140,.28) !important}
+.btn.blue{background:linear-gradient(180deg,#F7FBFD,#BCD8E8) padding-box, var(--gilt) border-box !important}
+.btn:hover{filter:brightness(1.03)}
+.chip{background:linear-gradient(180deg,#fff,#FBF3E8) padding-box, var(--gilt) border-box !important; border:1.5px solid transparent !important}
+
+/* menú lateral */
+.navi button{border-radius:12px !important}
+.navi button.on{background:linear-gradient(90deg,#F3C9CF,#FBE4E8) padding-box, var(--gilt) border-box !important; border:1.5px solid transparent !important;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.7), 0 3px 8px rgba(194,122,140,.25) !important}
+.navi button:hover:not(.on){background:rgba(243,201,207,.35) !important}
+.goal{border:none !important; box-shadow:0 0 0 1.5px var(--gold), 0 0 0 4px #fff, 0 0 0 5px var(--gold-light), 0 4px 10px rgba(78,57,52,.12) !important; border-radius:14px !important}
+
+/* lomos y libros con filetes dorados */
+.spine::before,.spine::after{background:var(--gilt) !important; opacity:1 !important; height:2px !important}
+.fbook{border:2px solid transparent !important; background-clip:padding-box !important; box-shadow:0 0 0 1.5px var(--gold-dark), 2px 5px 10px rgba(78,57,52,.35) !important}
+
+/* títulos caligráficos */
+.album-h, .cel-t, .welcome-overlay .ttl{font-family:var(--script) !important; font-weight:400 !important}
+.welcome-overlay .ttl{font-size:46px !important; color:#8A6A28 !important}
+.cel-t{font-size:32px !important}
+.door{background-image:var(--damask-gold), linear-gradient(90deg,#EFE2CC,#FBF4E8 50%,#EFE2CC) !important; background-size:120px 160px, auto !important}
+
+/* temas: cada uno con su seda */
+.win.theme-jardin .wall{background-image:var(--damask), linear-gradient(180deg,#F1F6EC,#E3EBCF) !important}
+.win.theme-medianoche .wall, .win.theme-medianoche .stats-grid{background-image:var(--damask-gold), linear-gradient(180deg,#3E3A4A,#2F2B38) !important}
+.win.night .wall{background-image:var(--damask-gold), linear-gradient(180deg,#4B4351,#3B3540) !important}
+
+/* suelo: parquet de Versalles y alfombra de Aubusson con borde dorado */
+.floor{background:
+    radial-gradient(ellipse 46% 60% at 50% 62%, rgba(243,201,207,.55), rgba(243,201,207,.35) 62%, transparent 64%),
+    repeating-linear-gradient(45deg, rgba(160,120,70,.10) 0 2px, transparent 2px 26px),
+    repeating-linear-gradient(-45deg, rgba(160,120,70,.10) 0 2px, transparent 2px 26px),
+    linear-gradient(180deg,#E9D6B8,#DCC4A0) !important;
+  border-top:none !important; box-shadow:inset 0 10px 14px rgba(78,57,52,.14), 0 -2px 0 var(--gold), 0 -5px 0 #fff, 0 -6px 0 var(--gold-light) !important}
+.floor .rug{border:3px double var(--gold) !important; box-shadow:inset 0 0 0 6px rgba(255,255,255,.35), inset 0 0 0 8px rgba(194,122,140,.35);
+  background:var(--damask-rose), radial-gradient(ellipse at center, rgba(252,240,242,.9), rgba(243,201,207,.6) 70%) !important; background-size:120px 160px, auto !important}
+.floor .flabel{font-family:var(--script) !important; font-size:19px !important; color:#7A5B3E !important}
+.cabinet.rincon .cname{left:36px !important}

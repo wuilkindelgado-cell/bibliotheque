@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bibliothèque">
+<meta name="theme-color" content="#FDF6EC">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<script src="web-shim.js"></script>
+<title>Bibliothèque Enchantée</title>
+<link rel="stylesheet" href="css/fonts.css">
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/epub.min.js"></script>
+<script src="vendor/pdf-lib.min.js"></script>
+<script>window.__pdfLocal=!!window.pdfjsLib;
+if(!window.__pdfLocal) document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"><\/script>');</script>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/v20.css">
+<link rel="stylesheet" href="css/rococo.css">
+<link rel="stylesheet" href="css/v17.css">
+<link rel="stylesheet" href="css/v18.css">
+<link rel="stylesheet" href="css/law.css">
+<link rel="stylesheet" href="mobile.css">
+</head>
+<body>
+
+<h1 class="page-title">Bibliothèque Enchantée <span style="color:#c48a90">pour Windows</span></h1>
+<p class="page-sub">Mockup v3 · rococó pastel (Bridal Rose · Rose Quartz · Whispy Blue · Buttercream) · escritorio</p>
+
+<div class="win">
+  <div class="titlebar">
+    <span class="t">🕯️ Bibliothèque <b>Enchantée</b></span>
+    <div style="display:flex; gap:6px; align-items:center">
+      <button class="chip" onclick="openGlobalSearch()" title="Buscar en todo el salón (Ctrl + K)">🔍 Buscar</button>
+      <button class="chip" id="profChip" onclick="switchProfile()" title="Cambiar perfil">👤 Lector(a)</button>
+      <button class="chip" onclick="lockApp()" title="Cerradura con llave">🗝️</button>
+      <button class="chip" onclick="openSaver()" title="Protector de pantalla">🖼️</button>
+    </div>
+    <div class="winbtns">
+      <span onclick="window.bibWin&&bibWin.min()" title="Minimizar">─</span>
+      <span onclick="window.bibWin&&bibWin.max()" title="Maximizar / Restaurar">▢</span>
+      <span onclick="window.bibWin?bibWin.close():toast('«Para cerrar, cierra la pestaña del navegador 😉»')" title="Cerrar">✕</span>
+    </div>
+  </div>
+  <div class="app">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar">
+      <div class="side-buddy" onclick="openBuddy()">
+        <div class="book-buddy">
+          <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+          <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+          <div class="title-tag buddy-name">Mi libro</div>
+        </div>
+        <div class="cap" id="sideCap">toca para conversar ✨</div>
+      </div>
+      <div class="navi">
+        <button data-v="v-library" onclick="nav(this)">🏛️ Biblioteca</button>
+        <button data-v="v-law" onclick="nav(this)">⚖️ Despacho de Derecho</button>
+        <button data-v="v-stats" onclick="nav(this)">📜 Salón de estadísticas</button>
+        <button data-v="v-achievements" onclick="nav(this)">🏆 Vitrina de logros</button>
+        <button data-v="v-quotes" onclick="nav(this)">✒️ Citas favoritas</button>
+        <button data-v="v-diary" onclick="nav(this)">📔 Diario del corazón</button>
+        <button data-v="v-calendar" onclick="nav(this)">🗓️ Calendario de recuerdos</button>
+        <button data-v="v-letters" onclick="nav(this)">💌 Cartas secretas <span id="lettersBadge" class="nbadge"></span></button>
+        <button data-v="v-wrapped" onclick="nav(this)">✨ Tu año lector</button>
+        <button data-v="v-goals" onclick="nav(this)">🏅 Metas y premios <span id="goalsBadge" class="nbadge"></span></button>
+        <button data-v="v-historia" onclick="nav(this)">💞 Nuestra historia</button>
+        <button data-v="v-album" onclick="nav(this)">📸 Álbum de recuerdos</button>
+        <button data-v="v-map" onclick="nav(this)">🗺️ Mapa literario</button>
+        <button data-v="v-plan" onclick="nav(this)">📅 Planificador</button>
+        <button data-v="v-wishes" onclick="nav(this)">🎁 Deseos y préstamos</button>
+        <button data-v="v-settings" onclick="nav(this)">⚙️ Configuración</button>
+        <button data-v="v-welcome" onclick="nav(this)">🚪 Ver bienvenida</button>
+      </div>
+      <div class="goal" style="margin-top:auto">
+        <div class="g1" id="sndTitle">🎶 Sonidos del salón</div>
+        <div style="display:flex; gap:6px; margin-top:6px">
+          <button class="ambtn" id="amb-fuego" onclick="toggleAmb('fuego',this)" title="Chimenea real (3 h)">🔥</button>
+          <button class="ambtn" id="amb-lluvia" onclick="toggleAmb('lluvia',this)" title="Tormenta real (1 h)">🌧️</button>
+          <button class="ambtn" id="amb-clave" onclick="toggleAmb('clave',this)" title="Clavecín real (Scarlatti)">🎻</button>
+          <button class="ambtn" onclick="document.getElementById('sndFile').click()" title="Agregar mi propio sonido">➕</button>
+        </div>
+        <div id="customSnds" style="display:flex; flex-wrap:wrap; gap:5px; margin-top:6px"></div>
+        <input type="file" id="sndFile" accept="audio/*" style="display:none" onchange="addCustomSound(this)">
+      </div>
+      <div class="goal" style="margin-top:10px; cursor:pointer" onclick="show('v-settings')" title="Configura tu meta en ⚙️">
+        <div class="g1" id="gTitle">🎯 Meta 2026</div>
+        <div class="bar"><i id="gBar" style="width:34%"></i></div>
+        <div class="g2" id="gTxt">8 de 24 libros… ¡vas bien!</div>
+        <div class="g2" id="gStreak" style="margin-top:2px">🔥 racha: —</div>
+      </div>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main">
+
+      <!-- BIBLIOTECA -->
+      <div class="view" id="v-library">
+        <div class="fresco">
+          <div class="cloud" style="width:90px;height:34px;left:6%;top:14px"></div>
+          <div class="cloud" style="width:120px;height:40px;right:10%;top:6px"></div>
+          <div class="cloud" style="width:70px;height:26px;left:30%;top:30px"></div>
+          <span class="chand">🕯️</span>
+          <div class="motto" id="libMotto">« La lecture est une amitié » — vista de tu salón</div>
+          <div class="actions">
+            <input class="searchbox" id="q" placeholder="🔍 buscar en tu salón…" oninput="filterBooks()">
+            <button class="btn small" id="decorBtn" onclick="toggleDecorMode()" title="Decorar el salón">🎨</button>
+            <button class="btn small" id="seasonBtn" onclick="seasonBurst()" title="Lluvia de temporada (5 s)">🌻</button>
+            <button class="btn small" onclick="toggleNight()" title="Modo noche">🌙</button>
+            <button class="btn blue small" id="resumeBtn" onclick="resumeReading()">▶ Seguir leyendo</button>
+            <button class="btn rose small" id="nbBtn" onclick="openAdd()">📚 Nuevo libro</button>
+          </div>
+        </div>
+        <div class="wall" id="wall"></div>
+        <div id="snowLayer"></div>
+        <div class="floor">
+          <div class="flabel">el suelo del salón — libros por leer</div>
+          <div class="rug"></div>
+          <div class="floor-books" id="floorBooks"></div>
+        </div>
+
+        <!-- Ficha -->
+        <div class="ficha-overlay" id="fichaOv">
+          <div class="frame-card ficha" style="width:100%; max-width:320px">
+            <div class="cover-mini" id="fCover"><div class="cov" id="fCoverT"></div></div>
+            <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:18px" id="fTitle"></div>
+            <div class="meta" id="fMeta"></div>
+            <div class="faces-view" id="fFaces"></div>
+            <div class="desc" id="fDesc"></div>
+            <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:10px">
+              <button class="btn small" onclick="closeFicha()">Cerrar</button>
+              <button class="btn blue small" onclick="editFromFicha()">✎ Editar</button>
+              <button class="btn small" onclick="reviewCard()" title="Una imagen bonita con tu reseña para compartir">💌 Tarjeta</button>
+              <button class="btn rose small" onclick="rereadBook()">Releer 📖↻</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agregar libro -->
+        <div class="ficha-overlay" id="addOv">
+          <div class="frame-card" style="width:100%; max-width:400px; max-height:94%; overflow-y:auto">
+            <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:19px">Nuevo libro 📚</div>
+            <div class="divider">✦</div>
+            <label class="fld">Título</label>
+            <input type="text" id="nbTitle" placeholder="Título del libro (o lo tomo del archivo)">
+            <label class="fld">Autor <span style="font-weight:400; font-style:italic">(opcional)</span></label>
+            <input type="text" id="nbAuthor" placeholder="¿Quién lo escribió?">
+            <label class="fld">Descripción / tu expectativa</label>
+            <textarea rows="2" id="nbDesc" placeholder="¿Qué esperas de esta lectura?"></textarea>
+            <label class="fld">📄 Archivo del libro <span style="font-weight:400; font-style:italic">(PDF, EPUB, cómic CBZ o audiolibro)</span></label>
+            <button class="btn small" id="nbPdfBtn" style="width:100%" onclick="document.getElementById('nbPdf').click()">Elegir archivo…</button>
+            <input type="file" id="nbPdf" accept="application/pdf,application/epub+zip,.epub,.cbz,audio/*,.m4b" multiple style="display:none" onchange="pickPdf(this,'nbPdfBtn')">
+            <label class="fld">🖼️ Portada &nbsp;·&nbsp; 🛋️ Imagen en el suelo</label>
+            <div class="prevw">
+              <div class="pv" id="pvCover" onclick="document.getElementById('nbCover').click()">Portada<br>🖼️ toca para elegir</div>
+              <div class="pv" id="pvFloor" onclick="document.getElementById('nbFloor').click()">Libro en el suelo<br>🛋️ toca para elegir</div>
+            </div>
+            <input type="file" id="nbCover" accept="image/*" style="display:none" onchange="pickImg(this,'pvCover')">
+            <input type="file" id="nbFloor" accept="image/*" style="display:none" onchange="pickImg(this,'pvFloor')">
+            <div class="lbl" style="text-align:center; font-size:12px; margin-top:10px">¿Varios libros? <span class="chip" style="font-size:11.5px" onclick="document.getElementById('nbMulti').click()">📚 Elígelos todos a la vez</span> o arrástralos a la ventana</div>
+            <input type="file" id="nbMulti" multiple accept=".pdf,.epub,.cbz,audio/*,.m4b" style="display:none" onchange="closeAdd(); importFiles(this.files); this.value=''">
+            <div style="display:flex; gap:10px; justify-content:center; margin-top:14px">
+              <button class="btn small" onclick="closeAdd()">Cancelar</button>
+              <button class="btn rose small" onclick="addBook()">Guardar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editar libro -->
+        <div class="ficha-overlay" id="editOv">
+          <div class="frame-card" style="width:100%; max-width:440px; max-height:94%; overflow-y:auto">
+            <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:19px">✎ Editar libro</div>
+            <div class="lbl" id="edWhere" style="text-align:center; font-size:12px; font-style:italic; color:var(--ink-soft)"></div>
+            <div class="divider">✦</div>
+            <label class="fld">Título</label>
+            <input type="text" id="edTitle" maxlength="80">
+            <label class="fld">Autor <span style="font-weight:400; font-style:italic">(opcional)</span></label>
+            <input type="text" id="edAuthor" maxlength="60" placeholder="¿Quién lo escribió?">
+            <label class="fld" id="edDescLbl">Descripción / tu expectativa</label>
+            <textarea rows="3" id="edDesc"></textarea>
+            <div id="edStatus" class="ed-status"></div>
+            <label class="fld">📚 Saga o serie <span style="font-weight:400; font-style:italic">(opcional)</span></label>
+            <div style="display:flex; gap:6px">
+              <input type="text" id="edSaga" list="sagaList" placeholder="p. ej. Harry Potter" style="flex:1">
+              <input type="number" id="edSagaN" min="1" max="99" placeholder="n.º" style="width:64px" title="Número dentro de la saga">
+              <input type="number" id="edSagaT" min="1" max="99" placeholder="de" style="width:64px" title="Total de libros de la saga">
+            </div>
+            <datalist id="sagaList"></datalist>
+            <label class="fld">🌍 ¿Dónde ocurre la historia? <span style="font-weight:400; font-style:italic">(para tu mapa literario)</span></label>
+            <div style="display:flex; gap:6px"><input type="text" id="edPlaceIn" list="countryList" placeholder="Escribe un país y presiona Enter" style="flex:1" onkeydown="if(event.key==='Enter'){event.preventDefault(); addPlace(this);}" onchange="addPlace(this)"></div>
+            <div id="edPlaces" style="display:flex; flex-wrap:wrap; gap:5px; margin-top:5px"></div>
+            <label class="fld">✍️ País del autor o autora</label>
+            <input type="text" id="edAuthorCountry" list="countryList" placeholder="p. ej. Perú">
+            <datalist id="countryList"></datalist>
+            <label class="fld">🎨 Color del lomo</label>
+            <div id="edColors" class="ed-colors"></div>
+            <label class="fld">🖼️ Portada &nbsp;·&nbsp; 🛋️ Imagen en el suelo</label>
+            <div class="prevw">
+              <div class="pv" id="edPvCover" onclick="document.getElementById('edCover').click()"></div>
+              <div class="pv" id="edPvFloor" onclick="document.getElementById('edFloor').click()"></div>
+            </div>
+            <div class="prevw" style="margin-top:4px">
+              <button class="chip" style="flex:1" onclick="edClearImg('cover')">✕ quitar portada</button>
+              <button class="chip" style="flex:1" onclick="edClearImg('floor')">✕ quitar imagen del suelo</button>
+            </div>
+            <input type="file" id="edCover" accept="image/*" style="display:none" onchange="edPickImg(this,'cover')">
+            <input type="file" id="edFloor" accept="image/*" style="display:none" onchange="edPickImg(this,'floor')">
+            <label class="fld">📄 Archivo del libro</label>
+            <button class="btn small" id="edFileBtn" style="width:100%" onclick="document.getElementById('edFile').click()">Reemplazar PDF / EPUB…</button>
+            <input type="file" id="edFile" accept="application/pdf,application/epub+zip,.epub" style="display:none" onchange="edPickFile(this)">
+            <div id="edShelfRow">
+              <label class="fld">🏛️ Estante</label>
+              <select id="edShelf"></select>
+              <label class="fld">Calificación</label>
+              <div class="faces" id="edFaces"></div>
+              <label class="fld">Tu reseña</label>
+              <textarea rows="2" id="edReview" placeholder="Lo que sentiste al terminarlo…"></textarea>
+            </div>
+            <div style="display:flex; gap:8px; justify-content:space-between; margin-top:16px; flex-wrap:wrap">
+              <button class="btn small" style="border-color:var(--wax); color:var(--wax)" onclick="deleteEditing()">🗑️ Eliminar</button>
+              <span style="display:flex; gap:8px">
+                <button class="btn small" onclick="closeEdit()">Cancelar</button>
+                <button class="btn rose small" onclick="saveEdit()">Guardar ✒️</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ceremonia -->
+        <div class="ceremony-bg" id="ceremonyOv" style="display:none">
+          <span class="confetti" style="left:12%">✨</span><span class="confetti" style="left:32%; animation-delay:.5s">🎀</span>
+          <span class="confetti" style="left:55%; animation-delay:1s">✨</span><span class="confetti" style="left:78%; animation-delay:1.4s">💗</span>
+          <div class="frame-card" style="width:100%; max-width:380px">
+            <div class="assistant" style="margin-bottom:8px">
+              <div class="book-buddy" style="transform:scale(.85); transform-origin:bottom left">
+                <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+                <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+                <div class="title-tag buddy-name">Mi libro</div>
+              </div>
+              <div class="speech" id="ceremonyTxt">¡Lo terminaste! 🥹✨</div>
+            </div>
+            <label class="fld">Tu reseña</label>
+            <textarea rows="2" id="cReview" placeholder="Cuéntamelo todo… 👀"></textarea>
+            <label class="fld">Calificación</label>
+            <div class="faces" id="cFaces">
+              <button onclick="pickFace(this)">😴</button><button onclick="pickFace(this)">😐</button>
+              <button onclick="pickFace(this)">🙂</button><button onclick="pickFace(this)">😄</button>
+              <button onclick="pickFace(this)">🤩</button>
+            </div>
+            <label class="fld">¿Tu parte favorita?</label>
+            <textarea rows="2" id="cFav" placeholder="Ese momento en que…"></textarea>
+            <div style="text-align:center; margin-top:12px">
+              <button class="btn rose" onclick="ceremonyDone()">Guardar recuerdo 🏛️</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LECTOR -->
+      <div class="view reader" id="v-reader">
+        <div class="rtop">
+          <button class="btn small" onclick="show('v-library')">← Biblioteca</button>
+          <span id="readerTitle" style="font-size:15px; letter-spacing:.06em">Libro</span>
+          <span style="display:flex; gap:5px; align-items:center; flex-wrap:wrap; justify-content:flex-end">
+            <button class="btn small" onclick="zoomOut()" title="Alejar">−</button>
+            <span id="zoomPct">100%</span>
+            <button class="btn small" onclick="zoomIn()" title="Acercar">+</button>
+            <input class="rjump" id="pgJump" placeholder="ir a…" onkeydown="if(event.key==='Enter')gotoPage(this.value)" title="Escribe una página y presiona Enter">
+            <button class="btn small" onclick="prevPage()" title="Página anterior (←)">◀</button>
+            <span id="pgInd" style="font-size:12px; color:var(--gold-dark)">— / —</span>
+            <button class="btn small" onclick="nextPage()" title="Página siguiente (→)">▶</button>
+            <span class="bmchip" id="bmChip" onclick="jumpBookmark()" title="Ir a tu marcador">🔖 —</span>
+          </span>
+        </div>
+        <div class="pages" id="readerPages">
+          <div class="spread single" id="spread">
+            <div class="pdf-page pdfreal" id="pgA"></div>
+            <div class="pdf-page pdfreal" id="pgB"></div>
+          </div>
+          <div class="seal-wrap" id="sealWrap" style="display:none">
+            <button class="seal" onclick="finishReading()">¿Culminaste?<br>🎀</button>
+            <div style="font-family:var(--hand); font-size:15px; color:#A5897C; margin-top:6px">El sello aparece solo al final del libro</div>
+          </div>
+        </div>
+        <div class="ink-bar" id="inkBar">
+          <span style="font-family:var(--disp); font-weight:700">✍️ Pluma</span>
+          <button class="inkc on" data-c="#C27A8C" style="background:#C27A8C" onclick="setInkColor(this.dataset.c)"></button>
+          <button class="inkc" data-c="#3B2F2A" style="background:#3B2F2A" onclick="setInkColor(this.dataset.c)"></button>
+          <button class="inkc" data-c="#5E86A8" style="background:#5E86A8" onclick="setInkColor(this.dataset.c)"></button>
+          <button class="inkc" data-c="#94A879" style="background:#94A879" onclick="setInkColor(this.dataset.c)"></button>
+          <button class="inkc" data-c="#C9A04A" style="background:#C9A04A" onclick="setInkColor(this.dataset.c)"></button>
+          <button id="inkEr" onclick="setEraser()" title="Borrador">🧽</button>
+          <button onclick="undoInk()" title="Deshacer el último trazo">↶</button>
+          <button onclick="toggleInk()">Listo</button>
+        </div>
+        <div class="tts-bar" id="ttsBar">
+          <span style="font-family:var(--disp); font-weight:700">🔊 Leyendo</span>
+          <button onclick="ttsSkip(-1)" title="Frase anterior">⏮</button>
+          <button id="ttsPauseBtn" onclick="ttsPause()" title="Pausa">⏸</button>
+          <button onclick="ttsSkip(1)" title="Frase siguiente">⏭</button>
+          <span style="margin-left:6px">velocidad</span>
+          <button onclick="ttsRate(-0.1)">−</button><span id="ttsRateLbl">1.0×</span><button onclick="ttsRate(0.1)">+</button>
+          <button onclick="ttsStop()" title="Detener">⏹</button>
+        </div>
+        <div class="rtools">
+          <button onclick="doHighlight()">🖍️ Subrayar</button><button id="swatch" class="rswatch hl-gold" onclick="cycleColor()" title="Color de subrayado">●</button>
+          <button id="positBtn" onclick="placePosit()">🗒️ Posit</button>
+          <button onclick="openIndex()">📑 Índice</button>
+          <button onclick="readerSearch()">🔍 En la página</button><input id="rSearch" class="searchbox" style="display:none; width:118px" placeholder="palabra… ⏎" onkeydown="if(event.key==='Enter')doFind(this.value)">
+          <button onclick="openBookSearch()">🔎 Todo el libro</button>
+          <button onclick="rotBook()" title="Girar página (para PDFs escaneados de lado)">🔄 Girar</button>
+          <button onclick="defineSel()" title="Selecciona una palabra y busca su definición en la RAE">📚 Definir</button>
+          <button id="pgMode" onclick="togglePages()">📖 Dos páginas</button>
+          <button onclick="toggleBookmark()">🔖 Marcador</button>
+          <button id="ttsBtn" onclick="ttsToggle(this)">🔊 Voz</button>
+          <button id="inkBtn" onclick="toggleInk(this)" title="Escribir o dibujar a mano sobre la página">✍️ Pluma</button>
+          <button onclick="addTab()" title="Pegar una pestañita de color en esta página">🏷️ Pestaña</button>
+          <button id="bedBtn" onclick="startBedtime()" title="Cuento antes de dormir" style="display:none">🌙 Cuento</button>
+          <button id="mangaBtn" onclick="toggleManga()" style="display:none" title="Leer de derecha a izquierda">🇯🇵 Manga</button>
+          <button id="reflowBtn" onclick="toggleReflow(this)" title="Muestra el texto del PDF con letra grande y cómoda">📝 Texto cómodo</button>
+          <select id="reflowFont" onchange="setReflowFont(this.value)" style="display:none; width:auto; padding:4px 6px; font-size:12px" title="Fuente del texto cómodo">
+            <option value="Lora">Lora</option><option value="Cormorant">Cormorant</option><option value="Georgia">Georgia</option><option value="Segoe">Segoe (sin serifa)</option><option value="Verdana">Verdana (muy legible)</option>
+          </select>
+          <button onclick="toggleNight()">🕯️ Noche</button>
+          <button onclick="toggleZen(this)" title="Lectura inmersiva: oculta los menús">⛶ Inmersivo</button>
+          <span id="dayChip" title="Tu meta de páginas de hoy">🌸 hoy 0/10</span>
+        </div>
+      </div>
+
+      <!-- AUDIOLIBRO -->
+      <div class="view" id="v-audio">
+        <div class="rtop" style="display:flex; justify-content:space-between; align-items:center; padding:9px 14px; background:var(--buttercream); border-bottom:2.5px solid var(--gold); font-family:var(--disp); font-weight:600">
+          <button class="btn small" onclick="show('v-library')">← Biblioteca</button>
+          <span style="letter-spacing:.06em">🎧 Audiolibro</span>
+          <button class="btn small" onclick="AB.book && openEdit(AB.book.id)" title="Cambiar título, autor o portada">✎ Editar</button>
+        </div>
+        <div class="ab-stage">
+          <div class="ab-left">
+            <div class="ab-cover" id="abCover"></div>
+            <div id="abTitle" style="font-family:var(--disp); font-weight:700; font-size:22px; text-align:center; margin-top:12px"></div>
+            <div id="abAuthor" class="lbl" style="text-align:center; font-style:italic"></div>
+            <div class="ab-bar" onclick="abSeekClick(event)" title="Toca para saltar"><i id="abBar"></i></div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--ink-soft)"><span id="abTime"></span><span id="abLeft"></span></div>
+            <div id="abTrackLbl" class="lbl" style="text-align:center; font-size:12px; margin-top:2px"></div>
+            <div class="ab-ctrl">
+              <button onclick="abTrack(AB.book.pos.t-1)" title="Pista anterior">⏮</button>
+              <button onclick="abSkip(-30)" title="Retroceder 30 s">⟲ 30</button>
+              <button id="abPlay" class="big" onclick="abToggle()">▶</button>
+              <button onclick="abSkip(30)" title="Adelantar 30 s">30 ⟳</button>
+              <button onclick="abTrack(AB.book.pos.t+1)" title="Pista siguiente">⏭</button>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; font-size:12.5px; align-items:center">
+              <span>Velocidad <select id="abRateSel" onchange="abRate(this.value)" style="width:auto; padding:3px 6px"><option>0.8</option><option value="1">1</option><option>1.15</option><option>1.25</option><option>1.5</option><option>1.75</option><option>2</option></select></span>
+              <span>🌙 Dormir <select id="abSleep" onchange="abSleep(this.value==='fin'?'fin':parseInt(this.value))" style="width:auto; padding:3px 6px"><option value="0">no</option><option value="15">15 min</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">60 min</option><option value="fin">al terminar la pista</option></select></span>
+            </div>
+            <div class="seal-wrap" id="abSeal" style="display:none; padding-top:12px"><button class="seal" onclick="AB.audio.pause(); finishReading()">¿Culminaste?<br>🎀</button></div>
+          </div>
+          <div class="ab-right">
+            <div class="stat-card">
+              <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:14px; font-style:normal">🗒️ Notas con hora</div>
+              <div style="display:flex; gap:6px; margin-top:6px"><input type="text" id="abNote" placeholder="Lo que sentiste justo aquí…" onkeydown="if(event.key==='Enter')abAddNote()"><button class="btn rose small" onclick="abAddNote()">Guardar</button></div>
+              <div id="abNotes" style="display:flex; flex-direction:column; gap:5px; margin-top:8px; max-height:190px; overflow-y:auto"></div>
+            </div>
+            <div class="stat-card">
+              <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:14px; font-style:normal">💿 Pistas</div>
+              <div id="abTracks" style="display:flex; flex-direction:column; gap:5px; margin-top:8px; max-height:300px; overflow-y:auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESTADÍSTICAS -->
+      <div class="view" id="v-stats">
+        <div class="fresco">
+          <div class="cloud" style="width:90px;height:34px;left:10%;top:12px"></div>
+          <div class="cloud" style="width:110px;height:38px;right:12%;top:8px"></div>
+          <span class="chand">📜</span>
+          <div class="motto">Salón de estadísticas — tu diario de lectura</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="big" id="stBooks">0</div><div class="lbl">libros terminados este año</div></div>
+          <div class="stat-card"><div class="big" id="stPages">0</div><div class="lbl">páginas leídas</div></div>
+          <div class="stat-card"><div class="big" id="stTime">0 min</div><div class="lbl">tiempo en el salón</div></div>
+          <div class="stat-card"><div class="big" id="stStreak">🔥 0</div><div class="lbl">días de racha actual</div></div>
+          <div class="stat-card"><div class="big" id="stFace">—</div><div class="lbl">calificación más frecuente</div></div>
+          <div class="stat-card"><div class="big" id="stRereads">↻ 0</div><div class="lbl">relecturas</div></div>
+          <div class="stat-card wide">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:14px; font-style:normal">Páginas por día — últimas 2 semanas</div>
+            <div class="mini-bars" id="stBars"></div>
+          </div>
+          <div class="stat-card wide" id="sagasCard"></div>
+          <div id="advStats" style="display:contents"></div>
+          <div class="stat-card wide">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:14px; font-style:normal" id="calTitle">🗓️ Calendario de lectura</div>
+            <div class="cal" id="calGrid"></div>
+            <div class="lbl" style="margin-top:6px; font-style:italic">🌸 = día con lectura · hoy con marco dorado · se actualiza con la fecha real de tu PC</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CITAS -->
+      <div class="view" id="v-quotes">
+        <div class="fresco">
+          <div class="cloud" style="width:90px;height:34px;left:14%;top:16px"></div>
+          <span class="chand">✒️</span>
+          <div class="motto">Citas favoritas — todos tus subrayados reunidos</div>
+        </div>
+        <div class="stats-grid" id="quotesGrid"></div>
+      </div>
+
+      <!-- DIARIO -->
+      <div class="view" id="v-diary">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:18%;top:14px"></div>
+          <span class="chand">📔</span>
+          <div class="motto">Diario del corazón — ¿cómo te sentiste leyendo hoy?</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:1fr">
+          <div class="stat-card" style="border-color:var(--rose-quartz)">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:14px; font-style:normal">Nueva entrada de hoy</div>
+            <div class="faces" id="dFaces">
+              <button onclick="pickFace(this)">😢</button><button onclick="pickFace(this)">😔</button>
+              <button onclick="pickFace(this)">🙂</button><button onclick="pickFace(this)">🥰</button>
+              <button onclick="pickFace(this)">✨</button>
+            </div>
+            <textarea id="dTxt" rows="2" placeholder="Hoy la lectura me hizo sentir…"></textarea>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px">
+              <button class="btn small" onclick="document.getElementById('dPhoto').click()">📷 Añadir foto</button>
+              <button class="btn rose small" onclick="addDiary()">Guardar en el diario 📔</button>
+            </div>
+            <div class="dphv" id="dphv"><img id="dphImg"><span>foto lista para el diario</span><span style="cursor:pointer" onclick="clearDPhoto()">✕ quitar</span></div>
+            <input type="file" id="dPhoto" accept="image/*" style="display:none" onchange="pickDPhoto(this)">
+          </div>
+          <div id="diaryList" style="display:flex; flex-direction:column; gap:10px"></div>
+        </div>
+      </div>
+
+      <!-- CALENDARIO DE RECUERDOS -->
+      <div class="view" id="v-calendar">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:14%;top:14px"></div>
+          <span class="chand">🗓️</span>
+          <div class="motto">Calendario de recuerdos — toca cualquier día para revivirlo</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:minmax(300px,1fr) minmax(300px,1.1fr); align-items:start">
+          <div class="stat-card">
+            <div class="cal-nav">
+              <button class="btn small" onclick="calMove(-1)" title="Mes anterior">◀</button>
+              <div style="text-align:center">
+                <div id="cal2Title" style="font-family:var(--disp); font-weight:700; font-size:18px"></div>
+                <input type="month" id="calMonthIn" class="rjump" style="width:150px; margin-top:4px" onchange="calJump(this.value)" title="Ir a un mes">
+              </div>
+              <button class="btn small" onclick="calMove(1)" title="Mes siguiente">▶</button>
+            </div>
+            <div class="cal" id="calGrid2"></div>
+            <div style="display:flex; gap:6px; justify-content:center; margin-top:10px; flex-wrap:wrap">
+              <button class="chip" onclick="calToday()">📍 Hoy</button>
+              <input type="date" id="calDateIn" class="rjump" style="width:150px" onchange="if(this.value)calSelect(this.value)" title="Ir a una fecha exacta">
+            </div>
+            <div class="lbl" style="margin-top:8px; font-style:italic; font-size:11.5px">🌸 leíste · 📔 diario · ✒️ subrayados · 🗒️ posits · 🏆 libro terminado · 💗 fecha especial</div>
+          </div>
+          <div class="stat-card" id="dayPanel"></div>
+        </div>
+      </div>
+
+      <!-- CARTAS SECRETAS -->
+      <div class="view" id="v-letters">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:16%;top:12px"></div>
+          <span class="chand">💌</span>
+          <div class="motto" id="lettersMotto">Cartas secretas — se abren cuando llega su momento</div>
+          <div class="actions"><button class="btn small" onclick="openDesk()" title="Escritorio de Yeri (con clave)">🔏</button></div>
+        </div>
+        <div class="letters-grid" id="lettersGrid"></div>
+      </div>
+
+      <!-- TU AÑO LECTOR -->
+      <div class="view" id="v-wrapped">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:12%;top:14px"></div>
+          <span class="chand">✨</span>
+          <div class="motto">Tu año lector — el resumen de tus lecturas</div>
+        </div>
+        <div class="wrap-stage">
+          <div class="wrap-top">
+            <span style="display:flex; gap:8px; align-items:center">
+              <select id="wrapPeriod" onchange="renderWrapped()"></select>
+            </span>
+            <span style="display:flex; gap:8px">
+              <button class="btn rose small" onclick="exportWrapped()">💌 Guardar como imagen</button>
+            </span>
+          </div>
+          <div id="wrapCards" class="wrap-cards"></div>
+        </div>
+      </div>
+
+      <!-- METAS Y PREMIOS -->
+      <div class="view" id="v-goals">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:12%;top:14px"></div>
+          <span class="chand">🏅</span>
+          <div class="motto">Metas y premios — cada meta cumplida trae su recompensa</div>
+        </div>
+        <div class="stats-grid" style="align-content:start">
+          <div id="goalsGrid" style="display:contents"></div>
+          <div class="stat-card wide">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">✨ Crear una meta para mí</div>
+            <input type="text" id="mgTitle" placeholder="p. ej. Leer 3 libros este mes" style="margin-top:8px">
+            <div style="display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; align-items:center">
+              <select id="mgType" onchange="goalTypeUI('mg')" style="width:auto">
+                <option value="books">📚 Terminar libros</option><option value="pages">📃 Leer páginas</option><option value="days">🌸 Días con lectura</option><option value="streak">🔥 Racha de días seguidos</option><option value="saga">🏰 Completar una saga</option>
+              </select>
+              <input type="number" id="mgTarget" min="1" placeholder="¿cuántos?" style="width:110px">
+              <span id="mgSagaWrap" style="display:none"><select id="mgSaga" style="width:auto"></select></span>
+              <span class="lbl">desde</span><input type="date" id="mgFrom" style="width:auto">
+              <span class="lbl">hasta (opcional)</span><input type="date" id="mgUntil" style="width:auto">
+            </div>
+            <input type="text" id="mgReward" placeholder="Mi premio para mí (opcional): un helado, un libro nuevo, una tarde libre…" style="margin-top:6px">
+            <div style="text-align:right; margin-top:8px"><button class="btn rose small" onclick="addMyGoal()">Empezar meta 🏅</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESPACHO DE DERECHO -->
+      <div class="view" id="v-law">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:14%;top:12px"></div>
+          <span class="chand">⚖️</span>
+          <div class="motto" id="lawMotto">Despacho de la Abogada</div>
+        </div>
+        <div class="law-tabs tabs">
+          <button data-t="codigos" onclick="lawTab('codigos')">📜 Códigos</button>
+          <button data-t="articulos" onclick="lawTab('articulos')">⭐ Mis artículos</button>
+          <button data-t="escritos" onclick="lawTab('escritos')">✍️ Mis escritos</button>
+          <button data-t="cursos" onclick="lawTab('cursos')">🎓 Mis cursos</button>
+          <button data-t="estudio" onclick="lawTab('estudio')">🧠 Estudio</button>
+          <button data-t="pasion" onclick="lawTab('pasion')">💛 Mi pasión</button>
+        </div>
+        <div class="law-stage">
+          <div class="law-pane" data-p="codigos"><div id="lawCodes"></div></div>
+          <div class="law-pane law-visor" data-p="visor" style="display:none">
+            <div class="lv-bar">
+              <button class="chip" onclick="lawTab('codigos')">← Códigos</button>
+              <b id="lawViewTitle"></b>
+              <span class="lv-tools">
+                <input type="text" id="lawArtNum" placeholder="Art. n.°" onkeydown="if(event.key==='Enter')findArticle()"><button class="chip" onclick="findArticle()">Ir al artículo</button>
+                <input type="text" id="lawFindTxt" placeholder="Buscar palabra…" onkeydown="if(event.key==='Enter')findText()"><button class="chip" onclick="findNext(true)">▲</button><button class="chip" onclick="findNext(false)">▼</button>
+                <span id="lawFindInfo" class="lbl"></span>
+                <button class="btn rose small" onclick="saveArticle()">💾 Guardar artículo</button>
+              </span>
+            </div>
+            <div class="lbl lv-msg" id="lawWebMsg"></div>
+            <div id="lawWebHost" class="lv-web"></div>
+          </div>
+          <div class="law-pane" data-p="articulos" style="display:none">
+            <div style="display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap"><input type="text" id="lawArtQ" placeholder="🔎 Buscar en tus artículos y notas…" oninput="renderMyArticles()" style="flex:1; min-width:220px"><select id="lawArtCode" onchange="renderMyArticles()" style="width:auto"></select></div>
+            <div id="lawArticles"></div>
+          </div>
+          <div class="law-pane" data-p="escritos" style="display:none">
+            <div class="ld-top"><select id="lawDocCourse" onchange="renderDocs()" style="width:auto"></select>
+              <button class="chip" onclick="document.getElementById('lawDocx').click()">📘 Abrir un Word (.docx)</button><input type="file" id="lawDocx" accept=".docx" style="display:none" onchange="importDocx(this)"></div>
+            <div class="adv-h">Nuevo escrito desde una plantilla</div>
+            <div class="ld-tpls" id="lawTpls"></div>
+            <div class="adv-h" style="margin-top:14px">Mis escritos y apuntes</div>
+            <div id="lawDocsList"></div>
+          </div>
+          <div class="law-pane law-editor-pane" data-p="editor" style="display:none">
+            <div class="le-bar">
+              <button class="chip" onclick="lawTab('escritos')">← Escritos</button>
+              <input type="text" id="lawDocTitle" oninput="if(lawDoc){lawDoc.title=this.value; scheduleSave();}" style="flex:1; min-width:180px; font-family:var(--disp); font-weight:700">
+              <select id="lawDocCourseE" onchange="if(lawDoc){lawDoc.course=this.value; scheduleSave();}" style="width:auto"></select>
+              <span class="lbl" id="lawWords"></span><span class="lbl" id="lawSaved"></span>
+              <button class="chip" onclick="exportDocx()">📘 Word</button><button class="chip" onclick="exportPdf()">📄 PDF</button>
+            </div>
+            <div class="le-tools">
+              <button onclick="fmt('bold')"><b>N</b></button><button onclick="fmt('italic')"><i>C</i></button><button onclick="fmt('underline')"><u>S</u></button>
+              <button onclick="fmt('formatBlock','H1')">Título</button><button onclick="fmt('formatBlock','H2')">Subtítulo</button><button onclick="fmt('formatBlock','P')">Párrafo</button>
+              <button onclick="fmt('insertOrderedList')">1.</button><button onclick="fmt('insertUnorderedList')">•</button>
+              <button onclick="fmt('justifyLeft')">⇤</button><button onclick="fmt('justifyCenter')">≡</button><button onclick="fmt('justifyFull')">☰</button>
+              <button onclick="fmt('formatBlock','BLOCKQUOTE')">❝ Cita</button><button class="hl" onclick="citeArticle()">⚖️ Citar artículo</button>
+              <button onclick="fmt('undo')">↶</button><button onclick="fmt('redo')">↷</button>
+            </div>
+            <div class="le-paper"><div id="lawEditor" class="law-editor" contenteditable="true" spellcheck="true" lang="es" oninput="docChanged()"></div></div>
+          </div>
+          <div class="law-pane" data-p="cursos" style="display:none"><div id="lawCourses"></div></div>
+          <div class="law-pane" data-p="estudio" style="display:none"><div id="lawStudy"></div></div>
+          <div class="law-pane" data-p="pasion" style="display:none"><div id="lawPassion"></div></div>
+        </div>
+      </div>
+
+      <!-- NUESTRA HISTORIA -->
+      <div class="view" id="v-historia">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:14%;top:12px"></div>
+          <span class="chand">💞</span>
+          <div class="motto">Nuestra historia — página a página, desde el 13 de junio de 2023</div>
+        </div>
+        <div class="historia-stage"><div id="historiaLine" class="historia-line"></div></div>
+      </div>
+
+      <!-- ÁLBUM DE RECUERDOS -->
+      <div class="view" id="v-album">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:16%;top:12px"></div>
+          <span class="chand">📸</span>
+          <div class="motto">Álbum de recuerdos — tus meses de lectura, pegados con cariño</div>
+        </div>
+        <div class="album-stage" id="albumPages"></div>
+      </div>
+
+      <!-- MAPA LITERARIO -->
+      <div class="view" id="v-map">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:14%;top:14px"></div>
+          <span class="chand">🗺️</span>
+          <div class="motto">Mapa literario — los lugares de tus historias</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:minmax(0,2.2fr) minmax(260px,1fr); align-items:start">
+          <div class="stat-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px">
+              <div class="tabs" id="mapModes" style="margin:0">
+                <button data-m="todo" onclick="setMapMode('todo')">🌍 Todo</button>
+                <button data-m="historias" onclick="setMapMode('historias')">📍 Dónde ocurren</button>
+                <button data-m="autores" onclick="setMapMode('autores')">✍️ De dónde son sus autores</button>
+              </div>
+              <div class="map-legend"><span>1</span><i style="background:#F4D9DA"></i><i style="background:#E8B1B7"></i><i style="background:#D48A95"></i><i style="background:#B86274"></i><i style="background:#8E3F55"></i><span>8+ libros</span></div>
+            </div>
+            <div id="mapSvg" class="map-svg"></div>
+            <div id="mapTip" class="map-tip"></div>
+            <div id="mapSum" class="lbl" style="margin-top:6px"></div>
+          </div>
+          <div class="stat-card" id="mapPanel"></div>
+        </div>
+      </div>
+
+      <!-- PLANIFICADOR -->
+      <div class="view" id="v-plan">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:14%;top:14px"></div>
+          <span class="chand">📅</span>
+          <div class="motto">Planificador de lecturas — qué leerás cada mes</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:1fr"><div class="stat-card" id="plannerBox"></div></div>
+      </div>
+
+      <!-- DESEOS Y PRÉSTAMOS -->
+      <div class="view" id="v-wishes">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:14%;top:14px"></div>
+          <span class="chand">🎁</span>
+          <div class="motto">Deseos y préstamos — los libros que sueñas y los que viajan</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:1fr 1fr; align-items:start">
+          <div class="stat-card">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">🌠 Libros que deseo</div>
+            <input type="text" id="wsT" placeholder="Título" style="margin-top:8px">
+            <div style="display:flex; gap:6px; margin-top:6px"><input type="text" id="wsA" placeholder="Autor (opcional)" style="flex:1">
+              <select id="wsP" style="width:auto" title="¿Cuánto lo deseas?"><option value="1">⭐</option><option value="2">⭐⭐</option><option value="3">⭐⭐⭐</option></select></div>
+            <input type="text" id="wsN" placeholder="Nota: dónde lo vi, quién me lo recomendó…" style="margin-top:6px">
+            <div style="text-align:right; margin-top:8px"><button class="btn rose small" onclick="addWish()">Guardar deseo ✨</button></div>
+            <div id="wishList" style="display:flex; flex-direction:column; gap:8px; margin-top:12px"></div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">🤝 Préstamos</div>
+            <input type="text" id="lnT" list="loanBooks" placeholder="Libro" style="margin-top:8px"><datalist id="loanBooks"></datalist>
+            <div style="display:flex; gap:6px; margin-top:6px">
+              <select id="lnD" style="width:auto"><option value="out">📤 Lo presté a…</option><option value="in">📥 Me lo prestó…</option></select>
+              <input type="text" id="lnW" placeholder="¿Quién?" style="flex:1"></div>
+            <div style="display:flex; gap:6px; margin-top:6px; align-items:center"><span class="lbl">Fecha</span><input type="date" id="lnF" style="flex:1"></div>
+            <div style="text-align:right; margin-top:8px"><button class="btn rose small" onclick="addLoan()">Anotar préstamo 📒</button></div>
+            <div id="loanList" style="display:flex; flex-direction:column; gap:8px; margin-top:12px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFIGURACIÓN -->
+      <div class="view" id="v-settings">
+        <div class="fresco">
+          <div class="cloud" style="width:100px;height:36px;left:12%;top:14px"></div>
+          <span class="chand">⚙️</span>
+          <div class="motto">Configuración del salón</div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns:1fr 1fr">
+          <div class="stat-card">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">🌍 Idioma y apariencia</div>
+            <div class="setrow"><span class="sl">Idioma</span>
+              <select id="setLangSel" onchange="setLang(this.value)">
+                <option value="es">Español</option><option value="en">English</option><option value="fr">Français</option>
+              </select></div>
+            <div class="setrow"><span class="sl">Tema de color</span>
+              <span style="display:flex; gap:8px">
+                <button class="themeb sel" style="background:linear-gradient(135deg,#F3EADB,#F4CBCC)" onclick="setTheme('versalles',this)" title="Versalles"></button>
+                <button class="themeb" style="background:linear-gradient(135deg,#F4CBCC,#C48A90)" onclick="setTheme('pompadour',this)" title="Rosa Pompadour"></button>
+                <button class="themeb" style="background:linear-gradient(135deg,#BFD3E2,#8FA8BD)" onclick="setTheme('trianon',this)" title="Azul Trianon"></button>
+                <button class="themeb" style="background:linear-gradient(135deg,#E2E8D2,#9BA97C)" onclick="setTheme('jardin',this)" title="Jardín del Trianon"></button>
+                <button class="themeb" style="background:linear-gradient(135deg,#6E6478,#2F2B38)" onclick="setTheme('medianoche',this)" title="Medianoche en la biblioteca"></button>
+              </span></div>
+            <div class="setrow"><span class="sl">Caritas para calificar</span>
+              <select id="setFaces" onchange="setFaceSet(this.value)">
+                <option value="clasicas">😴 😐 🙂 😄 🤩</option>
+                <option value="gatitos">😾 😿 🐱 😸 😻</option>
+                <option value="flores">🥀 🌱 🌼 🌷 🌹</option>
+                <option value="corazones">💔 🤍 💛 💗 💖</option>
+                <option value="estrellas">☁️ ⭐ 🌟 💫 ✨</option>
+              </select>
+              <span style="display:none">
+              </span></div>
+            <div class="setrow"><span class="sl">Letra del lector</span>
+              <input type="range" min="11" max="17" step=".5" value="12.5" oninput="document.documentElement.style.setProperty('--readfs', this.value+'px')"></div>
+            <div class="setrow"><span class="sl">♿ Letra de lectura accesible</span>
+              <select id="setAccFont" onchange="setAccess('font', this.value)"><option value="">(la del libro)</option><option value="Atkinson Hyperlegible">Atkinson (muy legible)</option><option value="OpenDyslexic">OpenDyslexic (dislexia)</option><option value="Verdana">Verdana</option></select></div>
+            <label class="setrow chk"><span class="sl">↔️ Espaciado amplio entre letras y líneas</span>
+              <input type="checkbox" id="setAccSp" onchange="setAccess('spacing', this.checked)"></label>
+            <label class="setrow chk"><span class="sl">📏 Regla de lectura (resalta la línea actual)</span>
+              <input type="checkbox" id="setAccRuler" onchange="setAccess('ruler', this.checked)"></label>
+            <label class="setrow chk"><span class="sl">🟡 Fondo crema suave en la página</span>
+              <input type="checkbox" id="setAccCream" onchange="setAccess('cream', this.checked)"></label>
+            <label class="setrow chk"><span class="sl">🌙 Cuento antes de dormir (botón en el lector)</span>
+              <input type="checkbox" id="setBedtime" onchange="setBedtimeOpt(this.checked)"></label>
+            <div class="setrow"><span class="sl">⏲️ Duración del cuento</span>
+              <select id="setBedMins" onchange="settings.bedtimeMins=this.value; scheduleSave()"><option>10</option><option>15</option><option selected>20</option><option>30</option><option>45</option></select></div>
+            <label class="setrow chk"><span class="sl">📕 Abrir y cerrar los libros con animación</span>
+              <input type="checkbox" id="setBookAnim" onchange="setBookAnim(this.checked)"></label>
+            <div class="setrow"><span class="sl">🪟 Ciudad de la ventana del salón</span>
+              <span style="display:flex; gap:6px"><input type="text" id="setWxCity" placeholder="Trujillo" style="width:150px" onkeydown="if(event.key==='Enter')setWeatherPlace(this.value)">
+              <button class="btn small" onclick="setWeatherPlace(document.getElementById('setWxCity').value)">Cambiar</button></span></div>
+            <label class="setrow chk"><span class="sl">📖 Pasar las hojas como un libro real</span>
+              <input type="checkbox" id="setPageFlip" onchange="setPageFlip(this.checked)"></label>
+            <label class="setrow chk"><span class="sl">🍃 Sonido de papel al pasar la hoja</span>
+              <input type="checkbox" id="setPageSound" onchange="setPageSound(this.checked)"></label>
+            <label class="setrow chk"><span class="sl">🕯️ Modo noche automático (7 p. m. a 6 a. m.)</span>
+              <input type="checkbox" id="setAutoNight" onchange="setAutoNight(this.checked)"></label>
+            <div class="setrow"><span class="sl">🖼️ Mi retrato en el salón</span>
+              <button class="btn small" onclick="openPortrait()">Elegir foto</button></div>
+            <div class="setrow"><span class="sl">Calidez del papel 🕯️</span>
+              <input type="range" id="setWarm" min="0" max="60" value="0" oninput="setWarm(this.value)" title="Filtro sepia para descansar la vista"></div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">🎯 Meta de lectura</div>
+            <div class="setrow"><span class="sl">Libros por año</span>
+              <input type="number" id="setGoal" min="1" max="365" value="24" onchange="settings.goal=parseInt(this.value)||24; updateGoal()"></div>
+            <div class="setrow"><span class="sl">Año de la meta</span>
+              <input type="number" id="setYear" min="2024" max="2100" value="2026" onchange="settings.year=this.value; updateGoal()"></div>
+            <div class="setrow"><span class="sl">Páginas por día</span>
+              <input type="number" id="setPg" min="1" max="500" value="10" onchange="settings.pagesGoal=parseInt(this.value)||10; scheduleSave(); updateDayChip(); toast('«¡Meta de '+settings.pagesGoal+' paginitas al día! 🌸»')"></div>
+            <div class="setrow"><span class="sl">Recordatorio de lectura</span>
+              <span style="display:flex; gap:6px; align-items:center">
+                <input type="time" id="setRemind" style="padding:5px 8px; border:1.5px solid var(--gold); border-radius:8px; background:var(--ivory); font-family:var(--body)" onchange="setReminder(this.value)">
+                <button class="btn small" id="remOff" onclick="setReminder(null)" title="Apagar recordatorio">✕</button>
+              </span></div>
+            <label class="setrow chk"><span class="sl">🔔 Avisarme aunque cierre la ventana</span>
+              <input type="checkbox" id="setTray" onchange="setTrayOpt('tray', this.checked)"></label>
+            <label class="setrow chk"><span class="sl">🪟 Abrir con Windows (escondida junto al reloj)</span>
+              <input type="checkbox" id="setLogin" onchange="setTrayOpt('login', this.checked)"></label>
+            <div class="lbl" style="font-style:italic">Con el aviso activo, al cerrar la ventana el salón sigue junto al reloj de Windows 🕰️ y te recuerda leer a tu hora. Para salir del todo: clic derecho en su ícono → «Salir por completo».</div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">🎶 Sonido</div>
+            <div class="setrow"><span class="sl">Volumen del salón</span>
+              <input type="range" min="0" max="100" value="70" oninput="setVolume(this.value)"></div>
+            <div class="lbl" style="font-style:italic">Chimenea, tormenta y clavecín son grabaciones reales de larga duración (archive.org). Sin internet, uso mis versiones de salón. Con ➕ agrega tus propios audios.</div>
+          </div>
+          <div class="stat-card">
+            <div class="lbl" style="font-family:var(--disp); font-weight:700; font-size:15px; font-style:normal">💾 Datos y privacidad</div>
+            <div class="setrow"><span class="sl">Respaldo completo</span>
+              <span style="display:flex; gap:8px">
+                <button class="btn small" onclick="exportFullBackup()" title="Un .zip con tu salón, libros, portadas y fotos del diario">Exportar 📦</button>
+                <button class="btn small" onclick="document.getElementById('bakFile').click()" title="Restaura un respaldo .zip (o un .json antiguo)">Importar 📂</button>
+                <input type="file" id="bakFile" accept=".zip,.json,application/zip,application/json" style="display:none" onchange="importAnyBackup(this)">
+              </span></div>
+            <label class="setrow chk"><span class="sl">🗓️ Respaldo automático semanal (guarda los últimos 4)</span>
+              <input type="checkbox" id="setWeekly" onchange="settings.weeklyBackup=this.checked; scheduleSave(); if(this.checked) weeklyBackup(true)"></label>
+            <div class="setrow"><span class="sl">📕 Nuestro libro del año (para imprimir)</span>
+              <span style="display:flex; gap:6px"><select id="ybYear"></select><button class="btn rose small" onclick="yearBook(document.getElementById('ybYear').value)">Crear PDF</button></span></div>
+            <div class="setrow"><span class="sl">Copia en Documentos</span>
+              <span style="display:flex; gap:8px">
+                <button class="btn small" onclick="restoreFromDocuments()" title="Si reinstalaste la app o falta algún archivo, lo recupero de Documentos\Bibliotheque Enchantee">Recuperar ↺</button>
+                <button class="btn small" onclick="openDataFolder()" title="Abrir la carpeta donde se guarda la copia">📁</button>
+              </span></div>
+            <div class="setrow"><span class="sl">Cerradura</span>
+              <button class="btn small" onclick="pin=null; lockApp()">Cambiar PIN 🗝️</button></div>
+            <label class="setrow chk"><span class="sl">🗝️ Pedir el PIN al abrir la app</span>
+              <input type="checkbox" id="setPinStart" onchange="setPinOnStart(this.checked)"></label>
+            <div class="setrow"><span class="sl">🔄 Actualizaciones <span class="lbl" style="font-weight:400">· versión <span id="updVer">—</span></span></span>
+              <button class="btn small" onclick="checkUpdates(true)">Buscar ahora</button></div>
+            <div id="updStatus" class="lbl" style="font-size:12px; margin:-4px 0 4px"></div>
+            <label class="setrow chk"><span class="sl">Buscar versiones nuevas automáticamente</span>
+              <input type="checkbox" id="setAutoUpd" onchange="setAutoUpdate(this.checked)"></label>
+            <div class="setrow"><span class="sl">Portadas automáticas</span>
+              <button class="btn small" onclick="makeMissingCovers()" title="Crea la portada de los libros que no tienen, desde su primera página">🖼️ Crear las que faltan</button></div>
+            <div class="setrow"><span class="sl">Papelera de libros</span>
+              <button class="btn small" id="trashBtn" onclick="openTrash()">🗑️ Ver papelera</button></div>
+            <div class="setrow"><span class="sl">Empezar de cero</span>
+              <button class="btn small" style="border-color:var(--wax)" onclick="wipeAll()">Borrar todo 🧹</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGROS -->
+      <div class="view" id="v-achievements">
+        <div class="fresco">
+          <div class="cloud" style="width:90px;height:34px;left:8%;top:14px"></div>
+          <span class="chand">🏆</span>
+          <div class="motto">Vitrina de logros — cada medallón desbloquea una decoración</div>
+        </div>
+        <div class="medals" id="medalsGrid"></div>
+      </div>
+
+      <!-- BIENVENIDA -->
+      <div class="view active" id="v-welcome">
+        <div class="doors" id="doors"><div class="door l"></div><div class="door r"></div></div>
+        <div class="welcome-overlay" id="welcomeOv">
+          <div class="ttl">Bienvenue à<br>votre bibliothèque…</div>
+          <div style="color:var(--bridal-rose); font-size:22px">🌹 ❦ 🌹 ❦ 🌹</div>
+          <div style="font-family:var(--hand); font-size:16.5px; color:var(--ink-soft)">Hecha con amor por <b>Yeri</b> para <b>Xiomara</b> 💗</div>
+          <button class="btn rose" onclick="openDoors()">Entrar</button>
+        </div>
+      </div>
+
+      <!-- REGISTRO -->
+      <div class="view" id="v-register">
+        <div class="center-col">
+          <div class="frame-card" style="width:100%; max-width:380px">
+            <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:20px">Cuéntame de ti</div>
+            <div class="divider">✦</div>
+            <label class="fld">Tu nombre o apodo</label>
+            <input type="text" id="inName" placeholder="p. ej. Yeri" maxlength="30">
+            <label class="fld">Tu edad</label>
+            <input type="number" id="inAge" placeholder="p. ej. 24" min="1" max="120">
+            <label class="fld">Tu libro favorito</label>
+            <input type="text" id="inFav" placeholder="p. ej. El Principito">
+            <label class="fld">📄 Su PDF <span style="font-weight:400; font-style:italic">(caerá al suelo del salón para leerlo)</span></label>
+            <button class="btn small" id="regPdfBtn" style="width:100%" onclick="document.getElementById('regPdf').click()">Elegir PDF…</button>
+            <input type="file" id="regPdf" accept="application/pdf,application/epub+zip,.epub" style="display:none" onchange="pickPdf(this,'regPdfBtn')">
+            <label class="fld">🖼️ Su portada &nbsp;·&nbsp; 🛋️ Su imagen en el suelo</label>
+            <div class="prevw">
+              <div class="pv" id="pvRCover" onclick="document.getElementById('regCover').click()">Portada<br>🖼️ toca para elegir</div>
+              <div class="pv" id="pvRFloor" onclick="document.getElementById('regFloor').click()">Libro en el suelo<br>🛋️ toca para elegir</div>
+            </div>
+            <input type="file" id="regCover" accept="image/*" style="display:none" onchange="pickImg(this,'pvRCover')">
+            <input type="file" id="regFloor" accept="image/*" style="display:none" onchange="pickImg(this,'pvRFloor')">
+            <div style="text-align:center; margin-top:18px">
+              <button class="btn rose" onclick="doRegister()">Continuar ✒️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ficha-overlay" id="searchOv">
+        <div class="frame-card" style="width:100%; max-width:420px">
+          <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:18px">Buscar en todo el libro 🔎</div>
+          <div class="divider">✦</div>
+          <div style="display:flex; gap:8px">
+            <input type="text" id="bsQ" placeholder="palabra o frase…" style="flex:1" onkeydown="if(event.key==='Enter')runBookSearch()">
+            <button class="btn rose small" onclick="runBookSearch()">Buscar</button>
+          </div>
+          <div class="res" id="bsRes"></div>
+          <div style="text-align:center; margin-top:12px">
+            <button class="btn small" onclick="document.getElementById('searchOv').classList.remove('show')">Cerrar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bubble" id="buddyBubble">
+        <span class="bx" onclick="bubClose()">✕</span>
+        <div class="bh">🎀 <span class="buddy-name">Mi libro</span> te cuenta…</div>
+        <div id="bubTxt"></div>
+      </div>
+
+      <div id="celebOv" onclick="if(event.target===this)closeCeleb()">
+        <div class="cel-card">
+          <div style="font-size:34px" id="celEmoji">💗</div>
+          <div class="cel-t" id="celTitle"></div>
+          <div class="cel-m" id="celMsg"></div>
+          <button class="btn rose" onclick="closeCeleb()">Lo guardo en mi corazón 💗</button>
+        </div>
+      </div>
+
+      <div class="ab-mini" id="abMini"><span>🎧</span><span id="abMiniT" class="t"></span>
+        <button onclick="abToggle()" title="Pausa">⏸</button><button onclick="AB.book && openAudio(state.floor.indexOf(AB.book))" title="Abrir el reproductor">↗</button></div>
+      <input type="file" id="portraitFile" accept="image/*" style="display:none" onchange="setPortrait(this)">
+      <div class="toast" id="toast"></div>
+    </div><!-- /main -->
+  </div><!-- /app -->
+
+  <!-- Menú del asistente -->
+  <div class="ficha-overlay" id="buddyOv" style="z-index:60">
+    <div class="frame-card" style="width:100%; max-width:310px; text-align:center">
+      <div style="display:flex; justify-content:center; margin-bottom:6px">
+        <div class="book-buddy">
+          <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+          <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+          <div class="title-tag buddy-name">Mi libro</div>
+        </div>
+      </div>
+      <div style="font-family:var(--hand); font-size:18px; color:var(--ink-soft); margin-bottom:10px">¿en qué te ayudo hoy? 🎀</div>
+      <div style="display:flex; flex-direction:column; gap:7px">
+        <button class="btn small" onclick="buddyChat()">💬 Conversemos (trivia, juegos, recuerdos…)</button>
+        <button class="btn rose small" onclick="buddyRecommend()">🎲 ¿Qué leo hoy?</button>
+        <button class="btn blue small" onclick="buddyQuote()">✒️ Frase del día</button>
+        <div style="display:flex; gap:6px; align-items:center">
+          <button class="btn small" style="flex:1" onclick="buddyFocus()">🍵 Modo enfoque</button>
+          <select id="focusMin" style="width:70px; font-size:12px; padding:5px" onclick="event.stopPropagation()">
+            <option>10</option><option>15</option><option selected>25</option><option>45</option><option>60</option>
+          </select><span style="font-size:11.5px">min</span>
+        </div>
+        <button class="btn small" onclick="buddyFact()">📚 Cuéntame de mi salón</button>
+        <button class="btn small" onclick="buddyMood()">💗 ¿Cómo estás?</button>
+        <button class="btn rose small" onclick="openDress()">👗 Vestidor de mi libro</button>
+        <button class="btn blue small" onclick="openEvents()">🎪 Eventos del salón</button>
+        <button class="btn small" onclick="closeBuddy(); startTutorial()">🎓 Repetir tutorial</button>
+        <button class="btn small" style="opacity:.8" onclick="closeBuddy()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cerradura con llave -->
+  <div class="ficha-overlay" id="lockOv" style="z-index:80; background:rgba(122,95,86,.78)">
+    <div class="frame-card" style="width:100%; max-width:300px; text-align:center">
+      <div style="font-size:42px">🗝️</div>
+      <div id="lockMsg" style="font-family:var(--disp); font-weight:700; font-size:17px; margin:6px 0">Salón bajo llave</div>
+      <input type="password" id="pinIn" maxlength="4" inputmode="numeric" placeholder="••••"
+        style="text-align:center; font-size:22px; letter-spacing:10px; width:150px"
+        onkeydown="if(event.key==='Enter')pinSubmit()">
+      <div style="display:flex; gap:8px; justify-content:center; margin-top:12px">
+        <button class="btn small" id="lockCancel" onclick="document.getElementById('lockOv').classList.remove('show')">Cancelar</button>
+        <button class="btn rose small" onclick="pinSubmit()">Abrir 🗝️</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Protector de pantalla -->
+  <div id="saverOv" onclick="closeSaver()">
+    <div class="sv-clock" id="svClock">00:00</div>
+    <div class="sv-buddy">
+      <div class="book-buddy" style="transform:scale(1.35)">
+        <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+        <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+        <div class="title-tag buddy-name">Mi libro</div>
+      </div>
+    </div>
+    <div class="sv-q" id="svQ"></div>
+    <div class="sv-hint">haz clic para volver al salón ✨</div>
+  </div>
+
+  <!-- Conversación con el asistente -->
+  <div class="ficha-overlay" id="chatOv" style="z-index:66" onclick="if(event.target===this)closeChat()">
+    <div class="frame-card chat-card">
+      <div class="chat-head">
+        <div class="book-buddy" style="transform:scale(.55); transform-origin:top left; margin:6px -26px -34px 4px; animation:none">
+          <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+          <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+          <div class="title-tag buddy-name">Mi libro</div>
+        </div>
+        <div style="flex:1">
+          <div style="font-family:var(--disp); font-weight:700; font-size:17px"><span class="buddy-name">Mi libro</span> conversa contigo</div>
+          <div class="lbl" id="chatScore" style="font-size:11.5px; font-style:italic; color:var(--ink-soft)"></div>
+        </div>
+        <button class="chip" onclick="closeChat()">✕</button>
+      </div>
+      <div class="chat-log" id="chatLog"></div>
+      <div class="chat-opts" id="chatOpts"></div>
+    </div>
+  </div>
+
+  <!-- Papelera -->
+  <div class="ficha-overlay" id="trashOv" style="z-index:70">
+    <div class="frame-card" style="width:100%; max-width:420px; max-height:85%; overflow-y:auto">
+      <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:18px">🗑️ Papelera de libros</div>
+      <div class="lbl" style="text-align:center; font-style:italic; font-size:11.5px">Los libros eliminados esperan aquí 30 días antes de irse para siempre</div>
+      <div class="divider">🌹</div>
+      <div id="trashList" style="display:flex; flex-direction:column; gap:8px"></div>
+      <div style="display:flex; justify-content:space-between; margin-top:12px">
+        <button class="btn small" style="border-color:var(--wax)" onclick="emptyTrash()">Vaciar papelera</button>
+        <button class="btn small" onclick="document.getElementById('trashOv').classList.remove('show')">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Índice del libro -->
+  <div class="ficha-overlay" id="indexOv" style="z-index:70">
+    <div class="frame-card" style="width:100%; max-width:330px">
+      <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:18px">📑 Índice del libro</div>
+      <div class="divider">✦</div>
+      <div id="indexList" style="display:flex; flex-direction:column; gap:6px; max-height:300px; overflow-y:auto"></div>
+      <div style="text-align:center; margin-top:10px">
+        <button class="btn small" onclick="document.getElementById('indexOv').classList.remove('show')">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vestidor -->
+  <div class="ficha-overlay" id="dressOv" style="z-index:70">
+    <div class="frame-card" style="width:100%; max-width:360px; max-height:85%; overflow-y:auto">
+      <div style="display:flex; gap:12px; align-items:center; justify-content:center">
+        <div class="book-buddy" style="transform:scale(.9)">
+          <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+          <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+          <div class="title-tag buddy-name">Mi libro</div>
+        </div>
+        <div>
+          <div style="font-family:var(--disp); font-weight:700; font-size:18px">👗 Vestidor</div>
+          <div class="lbl" id="dressLvl" style="font-size:11.5px; font-style:italic"></div>
+        </div>
+      </div>
+      <div class="divider">🌹</div>
+      <div id="dressSlots"></div>
+      <div style="text-align:center; margin-top:12px">
+        <button class="btn small" onclick="closeDress()">Cerrar 💗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Eventos del salón -->
+  <div class="ficha-overlay" id="eventsOv" style="z-index:70">
+    <div class="frame-card" style="width:100%; max-width:340px; max-height:85%; overflow-y:auto">
+      <div style="text-align:center; font-family:var(--disp); font-weight:700; font-size:18px">🎪 Eventos del salón</div>
+      <div class="lbl" style="text-align:center; font-style:italic; font-size:11.5px">Los organiza tu libro · las recompensas van al Vestidor</div>
+      <div class="divider">🌹</div>
+      <div id="evList" style="display:flex; flex-direction:column; gap:8px"></div>
+      <div style="text-align:center; margin-top:12px">
+        <button class="btn small" onclick="document.getElementById('eventsOv').classList.remove('show')">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tutorial guiado por el libro -->
+  <div id="tutOv">
+    <div class="frame-card" style="padding:14px 16px">
+      <div class="assistant">
+        <div class="book-buddy" style="transform:scale(.7); transform-origin:bottom left">
+          <div class="bow">🎀</div><div class="eyes"><i></i><i></i></div>
+          <div class="blush l"></div><div class="blush r"></div><div class="smile"></div>
+          <div class="title-tag buddy-name">Mi libro</div>
+        </div>
+        <div class="speech" id="tutTxt" style="font-size:15.5px"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px">
+        <span id="tutDots" style="font-size:11px; letter-spacing:2px"></span>
+        <span style="display:flex; gap:6px">
+          <button class="btn small" style="font-size:11.5px; padding:4px 10px" onclick="tutSkip()">Saltar</button>
+          <button class="btn rose small" style="font-size:11.5px; padding:4px 12px" onclick="tutNext()">Siguiente 🌹</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div><!-- /win -->
+
+<p class="hint">
+  🗒️ Posit de UN clic: pulsa el botón y la notita aparece al centro de la página lista para escribir · 🍵 modo enfoque con minutos configurables (10–60) ·
+  🎓 el tutorial ahora <b>viaja junto a cada zona</b> que tu libro explica · 🗓️ calendario REAL del mes con la fecha de tu PC (🌸 = día leído, hoy en dorado) ·
+  🔥 al entrar, tu libro saluda con tu racha — y si hoy no has leído te lo recuerda con ojitos 🥺 · 🍁 el tema de temporada rota SOLO todo el año según el calendario
+  (Año Nuevo/Navidad, San Valentín, primavera, verano, Fiestas Patrias 🇵🇪, otoño, brujitas 🎃) · 👗 catálogo ampliado a 35 accesorios.
+</p>
+
+<script src="js/core.js"></script>
+<script src="js/buddy.js"></script>
+<script src="js/sounds.js"></script>
+<script src="js/seasons.js"></script>
+<script src="js/buddy-life.js"></script>
+<script src="js/annotations.js"></script>
+<script src="js/quotes-diary.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/reader.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/helpers.js"></script>
+<script src="js/books-edit.js"></script>
+<script src="js/backup.js"></script>
+<script src="js/reader-plus.js"></script>
+<script src="js/epub-reader.js"></script>
+<script src="js/calendar-day.js"></script>
+<script src="js/data/facts.js"></script>
+<script src="js/buddy-plus.js"></script>
+<script src="js/letters.js"></script>
+<script src="js/wrapped.js"></script>
+<script src="js/extras.js"></script>
+<script src="js/system.js"></script>
+<script src="js/reader-v12.js"></script>
+<script src="js/organize.js"></script>
+<script src="js/comics.js"></script>
+<script src="js/audiobook.js"></script>
+<script src="js/goals.js"></script>
+<script src="js/album.js"></script>
+<script src="js/extras12.js"></script>
+<script src="js/data/world.js"></script>
+<script src="js/garden.js"></script>
+<script src="js/map.js"></script>
+<script src="js/stats-adv.js"></script>
+<script src="js/search.js"></script>
+<script src="js/updater.js"></script>
+<script src="js/dress-plus.js"></script>
+<script src="js/features14.js"></script>
+<script src="js/dates.js"></script>
+<script src="js/seasons2.js"></script>
+<script src="js/migrate.js"></script>
+<script src="js/pageflip.js"></script>
+<script src="js/bookopen.js"></script>
+<script src="js/buddy-anim.js"></script>
+<script src="js/salon-life.js"></script>
+<script src="js/decorator.js"></script>
+<script src="js/historia.js"></script>
+<script src="js/session.js"></script>
+<script src="js/dictionary.js"></script>
+<script src="js/reading18.js"></script>
+<script src="js/memories18.js"></script>
+<script src="vendor/mammoth.browser.min.js"></script>
+<script src="js/law-codes.js"></script>
+<script src="js/law-docs.js"></script>
+<script src="js/law-study.js"></script>
+<script src="js/law-main.js"></script>
+<script src="js/law-passion.js"></script>
+<script src="web-tail.js"></script>
+<script src="js/boot.js"></script>
+</body>
+</html>
